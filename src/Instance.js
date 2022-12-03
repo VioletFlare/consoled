@@ -9,11 +9,27 @@ class Instance {
 
     _ping() {
         this.wss.clients.forEach((ws) => {
-          if (ws.isAlive === false) return ws.terminate();
-      
+
+          if (ws.isAlive === false) {
+            return ws.terminate();
+          }
+
+          console.log("ping");
+
           ws.isAlive = false;
           ws.ping();
         });
+    }
+
+    _setHeartbeat() {
+      const interval = setInterval(() => this._ping(), 30000);
+        
+      this.wss.on('close', () => {
+        clearInterval(interval);
+      });
+
+      ws.isAlive = true;
+      ws.on('pong', this._setIsAlive);
     }
 
     _setEvents() {
@@ -24,16 +40,8 @@ class Instance {
           
         });
 
-        const interval = setInterval(() => this._ping(), 30000);
-        
-        this.wss.on('close', () => {
-          clearInterval(interval);
-        });
+        this._setHeartbeat();
 
-        ws.isAlive = true;
-        ws.on('pong', this._setIsAlive);
-      
-        ws.send('something');
       });
     }
     
