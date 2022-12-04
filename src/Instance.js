@@ -21,7 +21,7 @@ class Instance {
         });
     }
 
-    _setHeartbeat() {
+    _setHeartbeat(ws) {
       const interval = setInterval(() => this._ping(), 30000);
         
       this.wss.on('close', () => {
@@ -40,7 +40,7 @@ class Instance {
           
         });
 
-        this._setHeartbeat();
+        this._setHeartbeat(ws);
 
       });
     }
