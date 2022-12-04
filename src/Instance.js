@@ -14,8 +14,6 @@ class Instance {
             return ws.terminate();
           }
 
-          console.log("ping");
-
           ws.isAlive = false;
           ws.ping();
         });
@@ -35,12 +33,23 @@ class Instance {
     _setEvents() {
       this.wss.on('connection', (ws) => {
         ws.on('message', (data) => {
-          const message = data.toString('utf8');
+          const jsonString = data.toString('utf8');
+          const object = JSON.parse(jsonString);
 
-          console.log(message);
+          const isEmpty = Object.keys(object).length === 0;
+
+          if (!isEmpty) {
+              const route = object.route;
+              const response = this.controller.callRoute(route);
+              this.ws.send(response);
+          }
         });
 
-        ws.send('/guilds')
+        ws.send(
+          JSON.stringify({
+            route: "/guilds"
+          })
+        );
 
         this._setHeartbeat(ws);
 
