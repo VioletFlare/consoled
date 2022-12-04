@@ -37,8 +37,10 @@ class Instance {
         ws.on('message', (data) => {
           const message = data.toString('utf8');
 
-          
+          console.log(message);
         });
+
+        ws.send('/guilds')
 
         this._setHeartbeat(ws);
 
