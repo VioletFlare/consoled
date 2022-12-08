@@ -53,7 +53,8 @@ class Instance {
 
                 if (isRequest) {
                     const route = object.route;
-                    const response = this.controller.callRoute(route);
+                    const data = object.data;
+                    const response = this.controller.callRoute(route, data);
                     this.ws.send(response);
                 }
             }

@@ -4,7 +4,7 @@ class Controller {
         this.config = config;
     }
 
-    callRoute(route) {
+    callRoute(route, data) {
         let response = "{}";
 
         switch(route) {
