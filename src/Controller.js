@@ -1,19 +1,19 @@
 class Controller {
 
-    constructor(config) {
-        this.config = config;
-    }
-
     callRoute(route, data) {
-        let response = "{}";
+        let response = {};
 
         switch(route) {
-            case "/guilds":
-                response = this._getGuilds();
-            break;
+
         }
 
-        return response;
+        response.calledRoute = route;
+
+        const responseString = JSON.stringify(response);
+        
+        return responseString;
     }
 
 }
+
+module.exports = Controller;

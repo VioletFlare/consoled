@@ -14,9 +14,13 @@ const config = require("../config.js");
 const Controller = require("./Controller.js");
 
 class Instance {
+
+    constructor() {
+        this.controller = new Controller();
+    }
+
     _setIsAlive() {
         this.isAlive = true;
-        this.controller = new Controller();
     }
 
     _ping() {
@@ -41,7 +45,7 @@ class Instance {
         ws.on("pong", this._setIsAlive);
     }
 
-    _setMessageEventHandler() {
+    _setMessageEventHandler(ws) {
         ws.on("message", (data) => {
             const jsonString = data.toString("utf8");
             const object = JSON.parse(jsonString);
@@ -50,12 +54,15 @@ class Instance {
 
             if (!isEmpty) {
                 const isRequest = object.route;
+                const isResponse = object.calledRoute;
 
                 if (isRequest) {
                     const route = object.route;
                     const data = object.data;
                     const response = this.controller.callRoute(route, data);
-                    this.ws.send(response);
+                    ws.send(response);
+                } else if (isResponse) {
+                    console.log(object);
                 }
             }
         });
@@ -63,7 +70,7 @@ class Instance {
 
     _setEvents() {
         this.wss.on("connection", (ws) => {
-            this._setMessageEventHandler();
+            this._setMessageEventHandler(ws);
 
             ws.send(
                 JSON.stringify({
