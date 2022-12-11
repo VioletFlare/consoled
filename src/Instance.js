@@ -12,11 +12,14 @@
 const WebSocketServer = require("ws").WebSocketServer;
 const config = require("../config.js");
 const Controller = require("./Controller.js");
+const ResponseHandler = require("./ResponseHandler.js");
+const Cache = require("./Cache.js");
 
 class Instance {
 
     constructor() {
         this.controller = new Controller();
+        this.responeHandler = new ResponseHandler();
     }
 
     _setIsAlive() {
@@ -60,9 +63,13 @@ class Instance {
                     const route = object.route;
                     const data = object.data;
                     const response = this.controller.callRoute(route, data);
+
                     ws.send(response);
                 } else if (isResponse) {
-                    console.log(object);
+                    const route = object.calledRoute;
+                    const data = object.data;
+
+                    this.responeHandler.handle(route, data);
                 }
             }
         });
