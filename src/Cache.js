@@ -1,7 +1,7 @@
 class Cache {
 
     constructor() {
-        this.guildsPerBot = {};
+        this.guildsPerBot = [];
     }
 
 }

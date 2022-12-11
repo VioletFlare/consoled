@@ -1,3 +1,3 @@
-const Instance = require("./src/Instance.js");
+const InstanceManager = require("./src/InstanceManager.js");
 
-new Instance().init();
+new InstanceManager().init();

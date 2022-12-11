@@ -1,5 +1,9 @@
 class Controller {
 
+    constructor(cache) {
+        this.cache = cache;
+    }
+
     callRoute(route, data) {
         let response = {};
 

@@ -1,6 +1,7 @@
 class Requester {
 
-    constructor(config) {
+    constructor(cache) {
+        this.cache = cache;
         this.userAgent = "Consoled";
     }
 
