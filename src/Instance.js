@@ -3,6 +3,7 @@ const Heartbeater = require("./Heartbeater.js");
 const Controller = require("./Controller.js");
 const ResponseHandler = require("./ResponseHandler.js");
 const Requester = require("./Requester.js");
+const SessionCache = require('./SessionCache.js');
 
 class Instance {
 
@@ -10,7 +11,7 @@ class Instance {
         this.wss = wss;
         this.ws = ws;
         this.cache = cache;
-
+        this.sessionCache = new SessionCache();
         this.controller = new Controller(this.cache);
         this.responseHandler = new ResponseHandler(this.cache);
         this.requester = new Requester(this.cache);

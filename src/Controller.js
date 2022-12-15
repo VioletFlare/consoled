@@ -1,3 +1,5 @@
+const AuxConfig = require('./AuxConfig.js');
+
 class Controller {
 
     constructor(cache) {
@@ -8,7 +10,7 @@ class Controller {
         let response = {};
 
         switch(route) {
-            
+
 
         }
 
