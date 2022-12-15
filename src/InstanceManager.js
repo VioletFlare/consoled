@@ -25,7 +25,7 @@ class InstanceManager {
         this.wss.on("connection", (ws) => {
             const instance = new Instance(this.wss, ws, Cache);
             instance.init();
-            this.sessions.push
+            this.sessions.push(instance);
         });
     }
 
