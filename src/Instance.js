@@ -1,9 +1,8 @@
 const Heartbeater = require("./Heartbeater.js");
-const ResponseHandler = require("./ResponseHandler.js");
 
 const SessionCache = require('./SessionCache.js');
-const Server = require("./Server.js");
-const Client = require("./Client.js");
+const Server = require("./Server/Server.js");
+const Client = require("./Client/Client.js");
 
 class Instance {
 
@@ -13,7 +12,6 @@ class Instance {
         this.cache = cache;
         this.sessionCache = new SessionCache();
         this.server = new Server(this.ws);
-        this.responseHandler = new ResponseHandler(this.cache);
         this.heartbeater = new Heartbeater(this.wss, this.ws);
         this.client = new Client(this.ws);
     }

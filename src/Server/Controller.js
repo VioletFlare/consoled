@@ -1,4 +1,4 @@
-const AuxConfig = require('./AuxConfig.js');
+const AuxConfig = require('../AuxConfig.js');
 
 class Controller {
 

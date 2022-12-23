@@ -1,6 +1,6 @@
-const AuxConfig = require('./AuxConfig.js');
+const AuxConfig = require('../AuxConfig.js');
 
-class Requester {
+class RequestCreator {
 
     constructor(cache) {
         this.cache = cache;
@@ -20,4 +20,4 @@ class Requester {
 
 }
 
-module.exports = Requester;
+module.exports = RequestCreator;

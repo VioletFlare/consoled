@@ -1,10 +1,10 @@
-const Requester = require("./Requester.js");
+const RequestCreator = require("./RequestCreator.js");
 
 class Client {
 
     constructor(ws) {
         this.ws = ws;
-        this.requester = new Requester(this.cache);
+        this.requestCreator = new RequestCreator(this.cache);
     }
 
     sendRequest(route, data = {}) {
@@ -28,7 +28,7 @@ class Client {
 
             this.ws.on("message", _handler);
 
-            const request = this.requester.createRequest(route, data);
+            const request = this.requestCreator.createRequest(route, data);
 
             this.ws.send(JSON.stringify(
                 request
