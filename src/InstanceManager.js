@@ -9,7 +9,7 @@
 
 */
 
-const Cache = require("./Cache.js");
+const Cache = require("./Common/Cache.js");
 const WebSocketServer = require("ws").WebSocketServer;
 const config = require("../config.js");
 
