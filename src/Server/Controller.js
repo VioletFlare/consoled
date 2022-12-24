@@ -7,18 +7,21 @@ class Controller {
         
     }
 
-    callRoute(route, data) {
-        let response = {};
-        let baseResponse;
+
+    _getRouteData(route, data) {
+        let response;
 
         switch(route) {
-            case "/auth":
-                baseResponse = { authenticated: "true" };
-            break;
+
         }
 
-        response.data = baseResponse;
-        response.calledRoute = route;
+        return response;
+    }
+
+    callRoute(route, data) {
+        let response = {};
+
+        response.data = this._getRouteData(route, data);
         
         return response;
     }
