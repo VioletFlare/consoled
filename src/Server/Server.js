@@ -2,14 +2,14 @@ const Controller = require("./Controller.js");
 const auxConfig = require('../AuxConfig.js');
 
 class Server {
-    constructor(ws) {
+    constructor(ws, client) {
         this.ws = ws;
-        this.controller = new Controller(this.cache);
+        this.controller = new Controller(client, this.cache);
         this.userAgent = auxConfig.USER_AGENT;
     }
 
     _enrichWithOverhead(response) {
-        response.data.userAgent = this.userAgent;
+        response.userAgent = this.userAgent;
 
         return response;
     }
@@ -28,12 +28,14 @@ class Server {
                     const route = json.route;
                     const data = json.data;
 
-                    let response = this.controller.callRoute(route, data);
-                    response = this._enrichWithOverhead(response)
-                    response.calledRoute = route;
+                    this.controller.callRoute(route, data).then(response => {
+                        response = this._enrichWithOverhead(response)
+                        response.calledRoute = route;
+    
+                        const responseString = JSON.stringify(response);
+                        this.ws.send(responseString);
+                    });
 
-                    const responseString = JSON.stringify(response);
-                    this.ws.send(responseString);
                 }
             }
         });
