@@ -6,14 +6,17 @@ const Client = require("./Client/Client.js");
 
 class Instance {
 
-    constructor(wss, ws, cache) {
+    constructor(wss, ws, globalCache) {
         this.wss = wss;
         this.ws = ws;
-        this.cache = cache;
+        this.config = {
+            USER_AGENT: "Consoled"
+        };
+        this.globalCache = globalCache;
         this.sessionCache = new SessionCache();
         this.heartbeater = new Heartbeater(this.wss, this.ws);
-        this.client = new Client(this.ws);
-        this.server = new Server(this.ws, this.client);
+        this.client = new Client(this.config, this.ws);
+        this.server = new Server(this.config, this.ws);
     }
 
     init() {

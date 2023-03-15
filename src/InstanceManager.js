@@ -9,7 +9,7 @@
 
 */
 
-const Cache = require("./Common/Cache.js");
+const globalCache = require("./Common/GlobalCache.js");
 const WebSocketServer = require("ws").WebSocketServer;
 const config = require("../config.js");
 
@@ -23,7 +23,7 @@ class InstanceManager {
 
     _setEvents() {
         this.wss.on("connection", (ws) => {
-            const instance = new Instance(this.wss, ws, Cache);
+            const instance = new Instance(this.wss, ws, globalCache);
             instance.init();
             this.sessions.push(instance);
         });
