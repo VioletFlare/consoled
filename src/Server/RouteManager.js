@@ -1,7 +1,6 @@
 class RouteManager {
 
-    constructor(cache, sessions) {
-        this.sessions = sessions;
+    constructor() {
         this.routes = {};
     }
 

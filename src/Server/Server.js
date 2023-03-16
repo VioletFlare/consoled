@@ -4,7 +4,7 @@ class Server {
     constructor(config, ws) {
         this.config = config;
         this.ws = ws;
-        this.routeManager = new RouteManager(this.cache);
+        this.routeManager = new RouteManager();
         this.userAgent = this.config.USER_AGENT;
     }
 
