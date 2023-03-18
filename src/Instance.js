@@ -18,10 +18,11 @@ class Instance {
         this.client = new Client(this.config, this.ws);
         this.server = new Server(this.config, this.ws);
     }
+    
 
     init() {
-        this.heartbeater.init();
         this.server.init();
+        this.heartbeater.init();
     }
 
 }

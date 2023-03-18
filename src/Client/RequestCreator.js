@@ -11,7 +11,7 @@ class RequestCreator {
                 userAgent: this.config.USER_AGENT,
                 ...data
             }
-        }
+        };
 
         return request;
     }
