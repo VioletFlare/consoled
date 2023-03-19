@@ -11,15 +11,13 @@ class RouteManager {
     _getRouteData(route, data) {
         let response;
 
-        response = new Promise(resolve => {
-            if (this.routes[route]) { 
-                resolve({
-                    data: this.routes[route].call()
-                });
-            } else {
-                resolve({});
-            }
-        });
+        if (this.routes[route]) {
+            response = {
+                data: this.routes[route].call(),
+             };
+        } else {
+            response = {};
+        }
 
         return response;
     }

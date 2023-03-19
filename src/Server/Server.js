@@ -32,10 +32,12 @@ class Server {
                     const route = json.route;
                     const data = json.data;
                     
-                    this.routeManager.callRoute(route, data).then((response) => {
-                        response = this._enrichWithOverhead(response)
-                        response.calledRoute = route;
-    
+                    let response = this.routeManager.callRoute(route, data);
+                    response = this._enrichWithOverhead(response);
+                    response.calledRoute = route;
+
+                    Promise.resolve(response.data).then(data => {
+                        response.data = data;
                         const responseString = JSON.stringify(response);
                         this.ws.send(responseString);
                     });
