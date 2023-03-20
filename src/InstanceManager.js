@@ -13,22 +13,22 @@ const globalCache = require("./Common/GlobalCache.js");
 const WebSocketServer = require("ws").WebSocketServer;
 const config = require("../config.js");
 
-const Instance = require('./Instance.js');
-
+const Session = require('./Session.js');
+const SessionManager = require('./SessionManager');
 const Controller = require('./Controllers/Controller');
 
 class InstanceManager {
 
     constructor() {
-        this.sessions = [];
+        this.sessionManager = new SessionManager();
     }
 
     _setEvents() {
         this.wss.on("connection", (ws) => {
-            const instance = new Instance(this.wss, ws, globalCache);
-            instance.init();
-            this.sessions.push(instance);
-            new Controller(instance).init();
+            const session = new Session(this.wss, ws, globalCache);
+            session.init();
+            this.sessionManager.add(session);
+            new Controller(session).init();
         });
     }
 
