@@ -5,10 +5,10 @@ class Controller {
     }
 
     init() {
-        this.instance.on('/guilds', () => {
-            return this.instance.get('/guilds').then(response => {
-                return response.data;
-            });
+        this.instance.on('/ping', () => {
+            return {
+                response: "pong"
+            };
         });
     }
 
