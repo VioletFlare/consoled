@@ -34,7 +34,7 @@ class Server {
                     
                     let response = this.routeManager.callRoute(route, data);
                     response = this._enrichWithOverhead(response);
-                    response.calledRoute = route;
+                    response.route = route;
 
                     Promise.resolve(response.data).then(data => {
                         response.data = data;

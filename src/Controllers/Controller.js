@@ -1,11 +1,12 @@
 class Controller {
 
-    constructor(instance) {
-        this.instance = instance;
+    constructor(sessionManager, session) {
+        this.sessionManager = sessionManager;
+        this.session = session;
     }
 
     init() {
-        this.instance.on('/ping', () => {
+        this.session.on('/ping', () => {
             return {
                 response: "pong"
             };

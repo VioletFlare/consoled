@@ -28,7 +28,7 @@ class InstanceManager {
             const session = new Session(this.wss, ws, globalCache);
             session.init();
             this.sessionManager.add(session);
-            new Controller(session).init();
+            new Controller(this.sessionManager, session).init();
         });
     }
 
