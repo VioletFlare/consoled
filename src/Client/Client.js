@@ -2,9 +2,10 @@ const RequestCreator = require("./RequestCreator.js");
 
 class Client {
 
-    constructor(ws) {
+    constructor(config, ws) {
+        this.config = config;
         this.ws = ws;
-        this.requestCreator = new RequestCreator(this.cache);
+        this.requestCreator = new RequestCreator(this.config);
     }
 
     sendRequest(route, data = {}) {
@@ -16,11 +17,10 @@ class Client {
                 const isEmpty = Object.keys(response).length === 0;
     
                 if (!isEmpty) {
-                    const isResponse = response.calledRoute && route === response.calledRoute;
+                    const isResponse = response.route && route === response.route;
     
                     if (isResponse) {
-                        this.ws.removeEventListener("message", _handler);
-
+                        this.ws.off("message", _handler);
                         resolve(response);
                     }
                 }

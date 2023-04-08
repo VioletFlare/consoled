@@ -1,19 +1,18 @@
-const AuxConfig = require('../AuxConfig.js');
-
 class RequestCreator {
 
-    constructor(cache) {
-        this.cache = cache;
+    constructor(config) {
+        this.config = config;
     }
 
     createRequest(route, data = {}) {
         const request = {
             route: route,
+            userAgent: this.config.USER_AGENT,
+            type: "REQUEST",
             data: {
-                userAgent: AuxConfig.USER_AGENT,
                 ...data
             }
-        }
+        };
 
         return request;
     }

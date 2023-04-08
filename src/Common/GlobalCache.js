@@ -1,4 +1,4 @@
-class Cache {
+class GlobalCache {
 
     constructor() {
         this.guildsPerBot = [];
@@ -6,4 +6,4 @@ class Cache {
 
 }
 
-module.exports = new Cache();
+module.exports = new GlobalCache();

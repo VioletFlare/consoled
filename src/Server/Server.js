@@ -1,15 +1,20 @@
-const Controller = require("./Controller.js");
-const auxConfig = require('../AuxConfig.js');
+const RouteManager = require("./RouteManager.js");
 
 class Server {
-    constructor(ws, client) {
+    constructor(config, ws) {
+        this.config = config;
         this.ws = ws;
-        this.controller = new Controller(client, this.cache);
-        this.userAgent = auxConfig.USER_AGENT;
+        this.routeManager = new RouteManager();
+        this.userAgent = this.config.USER_AGENT;
+    }
+
+    registerAction(route, action) {
+        this.routeManager.registerAction(route, action);
     }
 
     _enrichWithOverhead(response) {
         response.userAgent = this.userAgent;
+        response.type = "RESPONSE";
 
         return response;
     }
@@ -22,20 +27,20 @@ class Server {
             const isEmpty = Object.keys(json).length === 0;
 
             if (!isEmpty) {
-                const isRequest = json.route;
+                const isRequest = json.route && json.type !== "RESPONSE";
 
                 if (isRequest) {
                     const route = json.route;
-                    const data = json.data;
+                    
+                    let response = this.routeManager.callRoute(route, json);
+                    response = this._enrichWithOverhead(response);
+                    response.route = route;
 
-                    this.controller.callRoute(route, data).then(response => {
-                        response = this._enrichWithOverhead(response)
-                        response.calledRoute = route;
-    
+                    Promise.resolve(response.data).then(data => {
+                        response.data = data;
                         const responseString = JSON.stringify(response);
                         this.ws.send(responseString);
                     });
-
                 }
             }
         });
