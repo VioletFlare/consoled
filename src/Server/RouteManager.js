@@ -13,7 +13,7 @@ class RouteManager {
 
         if (this.routes[route]) {
             response = {
-                data: this.routes[route].call(),
+                data: this.routes[route].call(null, data),
              };
         } else {
             response = {};

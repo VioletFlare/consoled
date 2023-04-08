@@ -4,7 +4,7 @@ const SessionCache = require('./Common/SessionCache.js');
 const Client = require('./Client/Client');
 const Server = require('./Server/Server');
 
-class Instance {
+class Session {
 
     constructor(wss, ws, globalCache) {
         this.wss = wss;
@@ -34,4 +34,4 @@ class Instance {
 
 }
 
-module.exports = Instance;
+module.exports = Session;
