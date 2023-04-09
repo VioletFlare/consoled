@@ -35,6 +35,7 @@ class Server {
                     let response = this.routeManager.callRoute(route, json);
                     response = this._enrichWithOverhead(response);
                     response.route = route;
+                    response.uuid = json.uuid;
 
                     Promise.resolve(response.data).then(data => {
                         response.data = data;
