@@ -8,6 +8,10 @@ class SessionManager {
             this.sessions[response.userAgent] = session;
         });
     }
+
+    get(userAgent) {
+        return this.sessions[userAgent];
+    }
 }
 
 module.exports = SessionManager;
